@@ -1,0 +1,37 @@
+spring:
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+      retries: 0
+      acks: all
+    consumer:
+      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+logging:
+  level:
+    org.springframework.*: error
+    com.demo.*: debug
+listen:
+  inbound:
+    topic: ${TOPIC_INBOUND:inbound_message}
+  outbound:
+    topic: ${TOPIC_OUTBOUND:outbound_message}
+  badConfig:
+    topic: ${TOPIC_BADCONFIG:inbound_bad_config_message}
+  massive:
+    topic: ${TOPIC_MASSIVE:massive_message}
+  internal:
+    topic: ${TOPIC_INTERNAL:internal_message}
+uriServiceK8s:
+  ig-db-chattigo: ${IG_DB_CHATTIGO_HOST:http://localhost}/api/rest/v1/
+  api-chattigo: ${API_CHATTIGO_HOST:https://apichattigodev.azurewebsites.net/}
+  api-channel: ${API_CHATTIGO_CHANNEL_HOST:https://kops-dev.chattigo.com/}
+  bff-supervisor: ${BFF_SUPERVISOR_HOST:https://kops-dev.chattigo.com/bff-portal-supervisor}
+  api-bot: ${API_CHATTIGO_BOT_HOST:https://kops-dev.chattigo.com/api-bot/inbound}
+  ms-autorespuesta: ${MS_AUTORESPUESTA_NEG:http://localhost:8082/api/rest/v1}  
+  ig-db-replica-chattigo: ${IG_DB_REPLICA_CHATTIGO_HOST:http://localhost}/api/rest/v1/
+  ms-notificacion-neg: ${MS_NOTIFICACION_NEG:http://localhost}/api/rest/v1/
+timeout:
+  connection: 10000
+  read: 30000
